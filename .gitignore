@@ -1,0 +1,11 @@
+*~
+\#*
+*#
+*.pyc
+__pycache__
+doc/*.bak
+doc/*.rst
+doc/Makefile
+doc/make.bat
+doc/_*
+*.egg-info
