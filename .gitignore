@@ -9,3 +9,4 @@ doc/Makefile
 doc/make.bat
 doc/_*
 *.egg-info
+dist
