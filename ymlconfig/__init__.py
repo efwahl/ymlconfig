@@ -1,5 +1,5 @@
 ''' module supporting yaml-format configuration files '''
-# copyright (c) 2014, Edward F. Wahl.
+# copyright (c) 2017, Edward F. Wahl.
 
 from bunch import Bunch
 import os.path

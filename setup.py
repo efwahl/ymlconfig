@@ -1,13 +1,13 @@
 """ setup data for ymlconfig """
 
-# copyright (c) 2014, Edward F. Wahl.
+# copyright (c) 2017, Edward F. Wahl.
 
 from setuptools import setup
 
 setup(name='ymlconfig',
       packages=['ymlconfig'],
       description='yaml configuration file support',
-      version='0.1.0',
+      version='0.2.0',
       url='https://github.com/efwahl/ymlconfig',
       author='Edward F. Wahl',
       author_email='efwahl@gyre.biz',
