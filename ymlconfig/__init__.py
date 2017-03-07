@@ -5,6 +5,8 @@ from bunch import Bunch
 import os.path
 import yaml
 
+from . import Preprocessor
+
 def _bunchify_tree(tree):
     '''
     convenience function to traverse a tree of dicts, lists
@@ -62,5 +64,6 @@ def load_file(path, **kwargs):
          see details of that function for operation
     '''
 
-    return load(open(os.path.expanduser(path), 'r').read(), **kwargs)
+    data = Preprocessor.Run(sourcefile = os.path.expanduser(path))
+    return load(data, **kwargs)
 
