@@ -7,7 +7,7 @@ from setuptools import setup
 setup(name='ymlconfig',
       packages=['ymlconfig'],
       description='yaml configuration file support',
-      version='0.2.0',
+      version='0.2.1',
       url='https://github.com/efwahl/ymlconfig',
       author='Edward F. Wahl',
       author_email='efwahl@gyre.biz',
