@@ -13,7 +13,10 @@ def _bunchify_tree(tree):
     and turn all dicts it contains to bunches
     '''
     if isinstance(tree, dict):
-        tree = Bunch(tree)
+        # only change real dicts to bunch, not derived classes
+        # that may have other puposes
+        if type(tree) == dict:
+            tree = Bunch(tree)
         for item in tree:
             tree[item] = _bunchify_tree(tree[item])
     elif isinstance(tree, list):
