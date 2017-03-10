@@ -3,14 +3,34 @@
 
 from bunch import Bunch
 import os.path
+import six
 import yaml
 
 from . import Preprocessor
 
-def _bunchify_tree(tree):
+def unbunchify_tree(tree):
     '''
     convenience function to traverse a tree of dicts, lists
     and turn all dicts it contains to bunches
+
+    safer than bunch.unbunchify as it doesn't mangle custom classes
+    '''
+    if isinstance(tree, dict):
+        if type(tree) == Bunch:
+            tree = dict((k, unbunchify_tree(v)) for k,v in six.iteritems(tree))
+        else:
+            for key, value in six.iteritems(tree):
+                tree[key] = unbunchify_tree(value)
+    elif isinstance(tree, (list, tuple)):
+        return type(tree)( unbunchify_tree(v) for v in tree)
+    return tree
+
+def bunchify_tree(tree):
+    '''
+    convenience function to traverse a tree of dicts, lists
+    and turn all dicts it contains to bunches
+
+    safer than bunch.bunchify as it doesn't mangle custom classes
     '''
     if isinstance(tree, dict):
         # only change real dicts to bunch, not derived classes
@@ -18,10 +38,9 @@ def _bunchify_tree(tree):
         if type(tree) == dict:
             tree = Bunch(tree)
         for item in tree:
-            tree[item] = _bunchify_tree(tree[item])
-    elif isinstance(tree, list):
-        for idx, item in enumerate(tree):
-            tree[idx] = _bunchify_tree(item)
+            tree[item] = bunchify_tree(tree[item])
+    elif isinstance(tree, (list, tuple)):
+        tree = type(tree)(bunchify_tree(v) for v in tree)
 
     return tree
 
@@ -56,7 +75,7 @@ def load(yaml_data, **kwargs):
 
     yaml.add_constructor('!format', _python_format)
 
-    return _bunchify_tree(yaml.load(yaml_data))
+    return bunchify_tree(yaml.load(yaml_data))
 
 def load_file(path, **kwargs):
     ''' convert yaml data into a configuration
