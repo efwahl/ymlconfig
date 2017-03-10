@@ -56,7 +56,7 @@ def Run(sourcefile, pathelements = None):
 
                 importeddata = Run(sourcefile = finalpath,
                                 pathelements  = pathelements)
-                for subline in importeddata.splitlines(keepends = True):
+                for subline in importeddata.splitlines(True):
                     rv += indent + subline
                 rv += "\n"
 
